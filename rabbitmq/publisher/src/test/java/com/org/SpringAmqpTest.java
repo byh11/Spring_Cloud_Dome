@@ -21,4 +21,20 @@ public class SpringAmqpTest {
             rabbitTemplate.convertAndSend("queue", "hello world");
         }
     }
+
+    @Test
+    public void t1(){
+        String exchange = "byh.fanout";
+        String message = "hello world";
+        rabbitTemplate.convertAndSend(exchange, "", message);
+    }
+
+
+    @Test
+    public void t2(){
+        String exchange = "byh.direct";
+        rabbitTemplate.convertAndSend(exchange, "aa", "aa");
+        rabbitTemplate.convertAndSend(exchange, "bb", "bb");
+        rabbitTemplate.convertAndSend(exchange, "cc", "cc");
+    }
 }

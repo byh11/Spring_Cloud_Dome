@@ -14,6 +14,7 @@
         <module>eureka-server</module>
         <module>gateway</module>
         <module>rabbitmq</module>
+        <module>Es</module>
     </modules>
 
     <parent>

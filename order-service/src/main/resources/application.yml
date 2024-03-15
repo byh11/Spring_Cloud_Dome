@@ -21,6 +21,8 @@ user-service:
   ribbon:
     NFLoadBalancingRuleClassName: com.alibaba.cloud.nacos.ribbon.NacosRule
 
+user:
+  a: 123
 
 server:
   port: 9500
