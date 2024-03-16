@@ -15,6 +15,7 @@
         <module>gateway</module>
         <module>rabbitmq</module>
         <module>Es</module>
+        <module>zookeeper</module>
     </modules>
 
     <parent>
