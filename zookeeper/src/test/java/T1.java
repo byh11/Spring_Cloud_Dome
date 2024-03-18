@@ -2,6 +2,10 @@ import org.apache.curator.RetryLoop;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.NodeCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.apache.zookeeper.data.Stat;
 import org.junit.After;
@@ -59,6 +63,42 @@ public class T1 {
         System.out.println(client.delete().forPath("/app1"));
     }
 
+
+    @Test
+    public void test7() throws Exception {
+        NodeCache nodeCache = new NodeCache(client, "/app1");
+        nodeCache.getListenable().addListener(() -> {
+            try {
+                System.out.println(new String(nodeCache.getCurrentData().getData()));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        nodeCache.start(true);
+        while (true){
+
+        }
+    }
+
+    @Test
+    public void test8() throws Exception {
+        PathChildrenCache pathChildrenCache = new PathChildrenCache(client, "/app1", true);
+        pathChildrenCache.getListenable().addListener(new PathChildrenCacheListener() {
+            @Override
+            public void childEvent(CuratorFramework client, PathChildrenCacheEvent event) throws Exception {
+                System.out.println(event);
+//                System.out.println(event.getData().getData());
+                if (event.getType() == PathChildrenCacheEvent.Type.CHILD_UPDATED) {
+//                    System.out.println("child removed");
+                    System.out.println(new String(event.getData().getData()));
+                }
+            }
+        });
+        pathChildrenCache.start();
+        while (true){
+
+        }
+    }
 
 
 
