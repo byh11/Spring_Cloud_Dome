@@ -12,6 +12,7 @@ public class UserServiceimpl implements UserService{
     private UserMapper userMapper;
     @Override
     public User getUser(int id) {
+        System.out.println("user-service");
         return userMapper.selectById(id);
     }
 }
