@@ -21,6 +21,11 @@ public class UserController {
     @Value("${user.a}")
     String a;
 
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
+
     @RequestMapping("/get")
     @ResponseBody
     public String get() {
