@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class ProducerTest {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         //配置参数
         Map<String,Object> map=new HashMap<String,Object>();
@@ -23,9 +23,10 @@ public class ProducerTest {
         //发送消息
 //        ProducerRecord<String,String> record = new ProducerRecord<String,String>("test","k1","hello kafka");
 
-        for (int i = 0; i < 10; i++) {
-            ProducerRecord record = new ProducerRecord<String,String>("test1","k"+i,"hello kafka"+i);
+        for (int i = 0; i < 10000; i++) {
+            ProducerRecord record = new ProducerRecord<String,String>("test2",i%2,"k"+i,"hello kafka"+i);
             producer.send(record);
+            Thread.sleep(1000);
         }
 
 
